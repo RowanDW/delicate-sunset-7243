@@ -28,7 +28,6 @@ RSpec.describe 'the flights index page' do
 
     @me1 = ManifestEntry.create!(flight: @flight3, passenger: @pass5)
     @me1 = ManifestEntry.create!(flight: @flight3, passenger: @pass6)
-
   end
 
   it "Shows all the flight numbers and airline name" do
@@ -37,20 +36,20 @@ RSpec.describe 'the flights index page' do
     expect(page).to have_content("All Flights")
 
     within("#flight-#{@flight1.id}") do
-      expect(page).to have_content("Flight ##{@flight1.id}")
-      expect(page).to have_content("Airline: #{@airline1.name}")
+      expect(page).to have_content("Flight ##{@flight1.number}")
+      expect(page).to have_content("- #{@airline1.name}")
     end
     within("#flight-#{@flight2.id}") do
-      expect(page).to have_content("Flight ##{@flight2.id}")
-      expect(page).to have_content("Airline: #{@airline1.name}")
+      expect(page).to have_content("Flight ##{@flight2.number}")
+      expect(page).to have_content("- #{@airline1.name}")
     end
     within("#flight-#{@flight3.id}") do
-      expect(page).to have_content("Flight ##{@flight3.id}")
-      expect(page).to have_content("Airline: #{@airline2.name}")
+      expect(page).to have_content("Flight ##{@flight3.number}")
+      expect(page).to have_content("- #{@airline2.name}")
     end
     within("#flight-#{@flight4.id}") do
-      expect(page).to have_content("Flight ##{@flight4.id}")
-      expect(page).to have_content("Airline: #{@airline2.name}")
+      expect(page).to have_content("Flight ##{@flight4.number}")
+      expect(page).to have_content("- #{@airline2.name}")
     end
 
   end
@@ -60,26 +59,27 @@ RSpec.describe 'the flights index page' do
 
     within("#flight-#{@flight1.id}") do
       expect(page).to have_content("Passengers:")
-      expect(page).to have_content(@passenger1.name)
-      expect(page).to have_content(@passenger2.name)
-      expect(page).to_not have_content(@passenger3.name)
+      expect(page).to have_content(@pass1.name)
+      expect(page).to have_content(@pass2.name)
+      expect(page).to_not have_content(@pass3.name)
     end
     within("#flight-#{@flight2.id}") do
       expect(page).to have_content("Passengers:")
-      expect(page).to have_content(@passenger1.name)
-      expect(page).to have_content(@passenger3.name)
-      expect(page).to have_content(@passenger4.name)
-      expect(page).to_not have_content(@passenger1.name)
+      expect(page).to have_content(@pass1.name)
+      expect(page).to have_content(@pass3.name)
+      expect(page).to have_content(@pass4.name)
+      expect(page).to_not have_content(@pass2.name)
     end
     within("#flight-#{@flight3.id}") do
       expect(page).to have_content("Passengers:")
-      expect(page).to have_content(@passenger5.name)
-      expect(page).to have_content(@passenger6.name)
-      expect(page).to_not have_content(@passenger3.name)
+      expect(page).to have_content(@pass5.name)
+      expect(page).to have_content(@pass6.name)
+      expect(page).to_not have_content(@pass3.name)
     end
     within("#flight-#{@flight4.id}") do
       expect(page).to have_content("Passengers:")
-      expect(page).to_not have_content(@passenger1.name)
-      expect(page).to_not have_content(@passenger6.name)
+      expect(page).to_not have_content(@pass1.name)
+      expect(page).to_not have_content(@pass6.name)
+    end
   end
 end
