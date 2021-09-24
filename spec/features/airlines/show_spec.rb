@@ -35,6 +35,7 @@ RSpec.describe 'the airline show page' do
 
     within('#passengers') do
       expect(page).to have_content("Adult Passengers:")
+
       # passenger on 2 airline1 flights
       expect(page).to have_content(@pass1.name, count: 1)
 
@@ -47,7 +48,7 @@ RSpec.describe 'the airline show page' do
       # passenger on both airline1 and airline2 flights
       expect(page).to have_content(@pass4.name)
 
-      # passenger only on airline 2 flight
+      # passenger only on airline2 flight
       expect(page).to_not have_content(@pass5.name)
 
       # passenger not on any flights
