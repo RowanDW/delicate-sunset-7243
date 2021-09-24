@@ -9,6 +9,7 @@ RSpec.describe Airline do
     @airline1 = Airline.create!(name: "Delta")
     @airline2 = Airline.create!(name: "United")
 
+    @flight0 = @airline1.flights.create!(number: 100, date: "12/31/1999", departure_city: "Orlando", arrival_city: "Seattle")
     @flight1 = @airline1.flights.create!(number: 101, date: "01/01/2000", departure_city: "Denver", arrival_city: "Boston")
     @flight2 = @airline1.flights.create!(number: 102, date: "01/02/2000", departure_city: "Denver", arrival_city: "Minneapolis")
     @flight3 = @airline2.flights.create!(number: 103, date: "01/03/2000", departure_city: "L.A.", arrival_city: "Chicago")
@@ -20,24 +21,27 @@ RSpec.describe Airline do
     @pass5 = Passenger.create!(name: "Tammy", age: 47)
     @pass6 = Passenger.create!(name: "Latrice", age: 50)
 
-    @me1 = ManifestEntry.create!(flight: @flight1, passenger: @pass1)
-    @me2 = ManifestEntry.create!(flight: @flight1, passenger: @pass2)
+    @me1 = ManifestEntry.create!(flight: @flight1, passenger: @pass2)
+    @me2 = ManifestEntry.create!(flight: @flight1, passenger: @pass1)
 
     @me3 = ManifestEntry.create!(flight: @flight2, passenger: @pass1)
     @me4 = ManifestEntry.create!(flight: @flight2, passenger: @pass3)
     @me5 = ManifestEntry.create!(flight: @flight2, passenger: @pass4)
 
-    @me6 = ManifestEntry.create!(flight: @flight3, passenger: @pass4)
-    @me7 = ManifestEntry.create!(flight: @flight3, passenger: @pass5)
+    @me6 = ManifestEntry.create!(flight: @flight0, passenger: @pass1)
+    @me7 = ManifestEntry.create!(flight: @flight0, passenger: @pass2)
+
+    @me8 = ManifestEntry.create!(flight: @flight3, passenger: @pass4)
+    @me9 = ManifestEntry.create!(flight: @flight3, passenger: @pass5)
   end
 
   describe 'instance methods' do
     describe '.adult_passengers' do
       it "returns a distinct list of adult passengers on all airline flights" do
-        # pass1 on 2 airline1 flights
-        # pass2 only on 1 airline1 flight
+        # pass1 on 3 airline1 flights
+        # pass2 on 2 airline1 flights
         # pass3 on airline1 flight but under 18
-        # pass4 on both airline1 and airline2 flights
+        # pass4 on both airline1 and airline2 flights (1 airline1 flight)
         # pass5 only on airline2 flight
         # pass6 not on any flights
 
