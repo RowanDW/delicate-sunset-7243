@@ -10,7 +10,6 @@ RSpec.describe 'the flights index page' do
     @flight2 = @airline1.flights.create!(number: 102, date: "01/02/2000", departure_city: "Denver", arrival_city: "Minneapolis")
     @flight3 = @airline2.flights.create!(number: 103, date: "01/03/2000", departure_city: "L.A.", arrival_city: "Chicago")
     @flight4 = @airline2.flights.create!(number: 104, date: "01/04/2000", departure_city: "Denver", arrival_city: "Houston")
-    @flights = [@flight1, @flight2, @flight3, @flight4]
 
     @pass1 = Passenger.create!(name: "Katya", age: 42)
     @pass2 = Passenger.create!(name: "Trixie", age: 35)
@@ -20,14 +19,14 @@ RSpec.describe 'the flights index page' do
     @pass6 = Passenger.create!(name: "Latrice", age: 50)
 
     @me1 = ManifestEntry.create!(flight: @flight1, passenger: @pass1)
-    @me1 = ManifestEntry.create!(flight: @flight1, passenger: @pass2)
+    @me2 = ManifestEntry.create!(flight: @flight1, passenger: @pass2)
 
-    @me1 = ManifestEntry.create!(flight: @flight2, passenger: @pass1)
-    @me1 = ManifestEntry.create!(flight: @flight2, passenger: @pass3)
-    @me1 = ManifestEntry.create!(flight: @flight2, passenger: @pass4)
+    @me3 = ManifestEntry.create!(flight: @flight2, passenger: @pass1)
+    @me4 = ManifestEntry.create!(flight: @flight2, passenger: @pass3)
+    @me5 = ManifestEntry.create!(flight: @flight2, passenger: @pass4)
 
-    @me1 = ManifestEntry.create!(flight: @flight3, passenger: @pass5)
-    @me1 = ManifestEntry.create!(flight: @flight3, passenger: @pass6)
+    @me6 = ManifestEntry.create!(flight: @flight3, passenger: @pass5)
+    @me6 = ManifestEntry.create!(flight: @flight3, passenger: @pass6)
   end
 
   it "Shows all the flight numbers and airline name" do
@@ -99,6 +98,11 @@ RSpec.describe 'the flights index page' do
     within("#flight-#{@flight1.id}") do
       expect(page).to_not have_content(@pass1.name)
       expect(page).to have_content(@pass2.name)
+    end
+
+    within("#flight-#{@flight2.id}") do
+      # confirm passenger only removed from flight1
+      expect(page).to have_content(@pass1.name)
     end
   end
 end
