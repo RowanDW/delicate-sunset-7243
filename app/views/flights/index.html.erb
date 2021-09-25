@@ -5,7 +5,7 @@
     <h3>Flight #<%= flight.number %> - <%= flight.airline.name %></h3>
     <h4>Passengers:</h4>
     <% flight.passengers.each do |pass| %>
-      <p><%= pass.name %> <%= button_to "Remove #{pass.name}", manifest_entry_path(ManifestEntry.find_by(flight: flight, passenger: pass)), method: :delete %></p>
+      <p><%= pass.name %> <%= button_to "Remove #{pass.name}", manifest_entry_path(pass.get_manifest_entry(flight)), method: :delete %></p>
     <% end %>
   </div>
 <% end %>
